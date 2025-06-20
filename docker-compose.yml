@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+  car-detection:
+    build: .
+    container_name: car-detection-app
+    volumes:
+      # Mount input data directory
+      - ./videos:/app/videos:ro
+      # Mount output directory
+      - ./output:/app/output
+      # Mount models directory
+      - ./models:/app/models:ro
+    environment:
+      - CUDA_VISIBLE_DEVICES=0
+      - PYTHONPATH=/app
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+    ports:
+      - "8080:8080"
+    command: ["python", "tracking_detector.py", "--help"]
+    
+  # Alternative service for CPU-only usage
+  car-detection-cpu:
+    build: .
+    container_name: car-detection-cpu
+    volumes:
+      - ./videos:/app/videos:ro
+      - ./output:/app/output
+      - ./models:/app/models:ro
+    environment:
+      - CUDA_VISIBLE_DEVICES=""
+      - PYTHONPATH=/app
+    ports:
+      - "8081:8080"
+    command: ["python", "tracking_detector.py", "--help"] 
