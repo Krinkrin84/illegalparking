@@ -11,8 +11,8 @@ import cv2
 # These parameters directly affect the car parking detection system
 
 # Color variation detection (HSV histogram analysis)
-COLOR_CHANGE_THRESHOLD = 0.05  # Lower = more sensitive to color changes
-COLOR_POSITION_RATIO = 0.8     # Ratio of color vs position detection (0.0-1.0) more to 1 = position detection is more important
+COLOR_CHANGE_THRESHOLD = 0.15  # Lower = more sensitive to color changes
+COLOR_POSITION_RATIO = 0.4     # Ratio of color vs position detection (0.0-1.0)
 COLOR_CHANGE_SMOOTHING = 0.9   # Higher = more smoothing
 
 # Parking timer settings
